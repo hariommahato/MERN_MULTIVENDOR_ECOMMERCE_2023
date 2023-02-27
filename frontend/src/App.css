@@ -1,0 +1,16 @@
+*{
+  margin:0;
+  scroll-behavior: smooth;
+}
+/* chrome,edge */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* firefox */
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+
+
