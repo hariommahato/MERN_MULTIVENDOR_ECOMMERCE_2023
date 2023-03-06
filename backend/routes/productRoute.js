@@ -10,12 +10,16 @@ const {
   deleteReview,
   getAdminProducts,
   getSingleUserProduct,
+  getFeaturedProduct,
+  getHotDealProduct
 } = require("../controllers/productController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
 const router = express.Router();
 
 router.route("/products").get(getAllProducts);
+router.route("/products/featured").get(getFeaturedProduct);
+router.route("/products/hotdeal").get(getHotDealProduct);
 
 router
   .route("/admin/products")

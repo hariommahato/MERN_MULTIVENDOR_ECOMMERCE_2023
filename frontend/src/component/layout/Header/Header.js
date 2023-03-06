@@ -12,8 +12,8 @@ function Header() {
   const { user } = useSelector((state) => state.user);
   const [keyword, setKeyword] = useState();
   const navigate = useNavigate();
-  const alert=useAlert()
-  const dispatch=useDispatch()
+  const alert = useAlert();
+  const dispatch = useDispatch();
   const searchSubmitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
@@ -23,10 +23,10 @@ function Header() {
       navigate(`/products`);
     }
   };
-  const logoutHandler=()=>{
+  const logoutHandler = () => {
     dispatch(logout());
     alert.success("Logout Successfully");
-  }
+  };
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -40,23 +40,32 @@ function Header() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-          <Nav.Link as={Link} to="/products">
+            <Nav.Link as={Link} to="/products">
               Products
             </Nav.Link>
             <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
-    
+
+            {user?.isseller ? (
+              <>
+                <Nav.Link as={Link} to="/user/dashboard">
+                  Dashboard
+                </Nav.Link>
+              </>
+            ) : (
+              <></>
+            )}
+            {/* 
             {user ? (
               <>
-            
                 <Nav.Link as={Link} to="/myproduct">
                   MyProduct
                 </Nav.Link>
               </>
             ) : (
               ""
-            )}
+            )} */}
           </Nav>
           <div
             style={{
@@ -66,11 +75,7 @@ function Header() {
               marginLeft: "0",
             }}
           >
-            <Form
-              className="d-flex"
-              onSubmit={searchSubmitHandler}
-            
-            >
+            <Form className="d-flex" onSubmit={searchSubmitHandler}>
               <Form.Control
                 type="search"
                 placeholder="Search"
@@ -84,17 +89,13 @@ function Header() {
               <Button variant="outline-success">Search</Button>
             </Form>
           </div>
+
           {user ? (
             <>
-
-            <Button variant="danger" as={Link} to="/addproduct" >
-              Post For Free
-            </Button>
-            <Button variant="outlined" as={Link} onClick={logoutHandler}>
-              Logout
-            </Button>
+              <Button variant="outlined" as={Link} onClick={logoutHandler}>
+                Logout
+              </Button>
             </>
-            
           ) : (
             <Button variant="outlined" as={Link} to="/login">
               LogIn

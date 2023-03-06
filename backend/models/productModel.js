@@ -1,4 +1,4 @@
-const {mongoose,Schema} = require("mongoose");
+const { mongoose, Schema } = require("mongoose");
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -10,6 +10,14 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, "please Enter Description"],
   },
+  isFeatured: {
+    type: Boolean,
+    default: false,
+  },
+  isHotDeal: {
+    type: Boolean,
+    default: false,
+  },
   price: {
     type: Number,
     required: [true, "please Enter Price"],
@@ -18,14 +26,6 @@ const productSchema = new mongoose.Schema({
   ratings: {
     type: Number,
     default: 0,
-  },
-  userName:{
-    type:String,
-    required:true,
-  },
-  userPhone:{
-    type:Number,
-    required:true,
   },
   images: [
     {
@@ -55,9 +55,9 @@ const productSchema = new mongoose.Schema({
   },
   reviews: [
     {
-      user:{
-        type:Schema.Types.ObjectId,
-        ref:"User",
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
         required: true,
       },
       name: {
@@ -74,9 +74,9 @@ const productSchema = new mongoose.Schema({
       },
     },
   ],
-  user:{
-    type:Schema.Types.ObjectId,
-    ref:"User",
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   createdAt: {

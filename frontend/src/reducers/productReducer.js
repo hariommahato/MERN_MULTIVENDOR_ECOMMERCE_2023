@@ -35,7 +35,71 @@ import {
   SINGLE_USER_PRODUCT_REQUEST,
   SINGLE_USER_PRODUCT_SUCCESS,
   SINGLE_USER_PRODUCT_FAIL,
+  FEATURED_PRODUCT_FAIL,
+  FEATURED_PRODUCT_REQUEST,
+  FEATURED_PRODUCT_SUCCESS,
+  HOTDEAL_PRODUCT_FAIL,
+  HOTDEAL_PRODUCT_REQUEST,
+  HOTDEAL_PRODUCT_SUCCESS,
 } from "../constants/productConstants";
+export const featuredproductreducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case FEATURED_PRODUCT_REQUEST:
+      return {
+        loading: true,
+        products: [],
+      };
+
+    case FEATURED_PRODUCT_SUCCESS:
+      return {
+        loading: false,
+        products: action.payload,
+      };
+
+    case FEATURED_PRODUCT_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+export const hotdealproductreducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case HOTDEAL_PRODUCT_REQUEST:
+      return {
+        loading: true,
+        products: [],
+      };
+
+    case HOTDEAL_PRODUCT_SUCCESS:
+      return {
+        loading: false,
+        products: action.payload,
+      };
+
+    case HOTDEAL_PRODUCT_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
 export const productsReducer = (state = { products: [] }, action) => {
   switch (action.type) {
@@ -184,7 +248,7 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
       return state;
   }
 };
-export const singleuserproductreducer = (state = { product: {} }, action) => {
+export const singleuserproductreducer = (state = { product: [] }, action) => {
   switch (action.type) {
     case SINGLE_USER_PRODUCT_REQUEST:
       return {

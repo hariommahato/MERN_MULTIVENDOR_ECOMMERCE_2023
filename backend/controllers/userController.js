@@ -14,13 +14,16 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     crop: "scale",
   });
 
-  const { name, email, password, phone } = req.body;
+  const { name, email, password, phone,address,shopname,isseller} = req.body;
 
   const user = await User.create({
     name,
     email,
     password,
     phone,
+    address,
+    shopname,
+    isseller,
     avatar: {
       public_id: myCloud.public_id,
       url: myCloud.secure_url,
@@ -188,7 +191,7 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
   const newUserData = {
     name: req.body.name,
     email: req.body.email,
-    phone:req.body.phone,
+    phone: req.body.phone,
   };
 
   if (req.body.avatar !== "") {
@@ -220,7 +223,6 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
     success: true,
   });
 });
-
 
 // Get single user (admin)
 exports.getSingleUser = catchAsyncError(async (req, res, next) => {

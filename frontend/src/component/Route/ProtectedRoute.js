@@ -4,14 +4,15 @@ import { useNavigate } from "react-router-dom";
 
 const ProtectedRoute = ({ isAdmin, component: Component, ...routeProps }) => {
   const { loading, isAuthenticated, user } = useSelector((state) => state.user);
+
   const navigate = useNavigate();
 
   if (!loading && isAuthenticated === false) {
-    return navigate("/login");
+    navigate("/login");
   }
 
-  if (!loading && isAdmin === true && user?.role !== "admin") {
-    return navigate("/login");
+  if ( isAdmin === true && user?.role !== "admin") {
+    navigate("/login");
   }
 
   return <Component {...routeProps} />;

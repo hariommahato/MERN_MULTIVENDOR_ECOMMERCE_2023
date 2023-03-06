@@ -34,9 +34,10 @@
 
 .productCard > img {
   width:auto;
-  height: 15rem;
+  height: 10rem;
   background-size: cover;
   background-position: center;
+  padding: 0.5rem;
 }
 
 .productCard > div {
@@ -53,8 +54,8 @@
 
 .productCard > p {
   font-family: "Roboto";
-  font-size: 1.2vmax;
-  margin: 1vmax 0.5vmax;
+  font-size: vmax;
+  margin: 0.5vmax 0.5vmax;
   margin-bottom: 0;
 }
 

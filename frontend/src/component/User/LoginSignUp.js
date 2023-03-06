@@ -4,17 +4,19 @@ import Loader from "../layout/Loader/Loader";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+import { Button, Checkbox, FormControlLabel } from "@material-ui/core";
 import FaceIcon from "@material-ui/icons/Face";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, login, register} from "../../actions/userActions";
+import { clearErrors, login, register } from "../../actions/userActions";
 import { useAlert } from "react-alert";
-import {BsFillTelephoneFill} from 'react-icons/bs'
+import { BsFillTelephoneFill } from "react-icons/bs";
+import BusinessIcon from '@material-ui/icons/Business'
+import HomeIcon from '@material-ui/icons/Home'
 
 const LoginSignUp = () => {
   const dispatch = useDispatch();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const alert = useAlert();
-
 
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
@@ -28,13 +30,16 @@ const LoginSignUp = () => {
   const [user, setUser] = useState({
     name: "",
     email: "",
-    phone:"",
+    phone: "",
     password: "",
+    address: "",
+    companyname: "",
   });
 
-  const { name, email, password,phone } = user;
+  const { name, email, password, phone ,companyname,address} = user;
 
   const [avatar, setAvatar] = useState("/logo192.png");
+  const [isseller,setIsseller]=useState(false)
   const [avatarPreview, setAvatarPreview] = useState("/logo192.png");
 
   const loginSubmit = (e) => {
@@ -50,6 +55,11 @@ const LoginSignUp = () => {
     myForm.set("phone", phone);
     myForm.set("password", password);
     myForm.set("avatar", avatar);
+    myForm.set('address',address);
+    myForm.set('companyname',companyname);
+    myForm.set('isseller',isseller)
+
+
     dispatch(register(myForm));
   };
 
@@ -155,7 +165,7 @@ const LoginSignUp = () => {
                   />
                 </div>
                 <div className="signUpName">
-                  <BsFillTelephoneFill/>
+                  <BsFillTelephoneFill />
                   <input
                     type="number"
                     placeholder="Enter Contact Number"
@@ -187,6 +197,47 @@ const LoginSignUp = () => {
                     onChange={registerDataChange}
                   />
                 </div>
+                <div>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={isseller}
+                        onChange={() => {
+                          setIsseller(!isseller);
+                        }}
+                      />
+                    }
+                    label="Do you want to sell with Easylink?"
+                  />
+                </div>
+                {isseller ?(
+                  <>
+                  <div className="signUpEmail">
+                  <HomeIcon />
+                  <input
+                    type="text"
+                    placeholder="Address/CompanyAddress"
+                    required
+                    name="address"
+                    value={address}
+                    onChange={registerDataChange}
+                  />
+                </div>
+                <div className="signUpPassword">
+                  <BusinessIcon />
+                  <input
+                    type="text"
+                    placeholder="Companyname"
+                    required
+                    name="companyname"
+                    value={companyname}
+                    onChange={registerDataChange}
+                  />
+                </div>
+
+                  </>
+                ):<></>}
+                {console.log(isseller)}
 
                 <div id="registerImage">
                   <img src={avatarPreview} alt="Avatar Preview" />

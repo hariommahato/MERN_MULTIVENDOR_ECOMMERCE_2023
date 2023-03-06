@@ -12,9 +12,11 @@ import TransferWithinAStationIcon from "@material-ui/icons/TransferWithinAStatio
 import { Country, State } from "country-state-city";
 import { useAlert } from "react-alert";
 import CheckoutSteps from "./CheckoutSteps.js";
+import { useNavigate } from "react-router-dom";
 
-const Shipping = ({history}) => {
+const Shipping = () => {
   const dispatch = useDispatch();
+  const navigate=useNavigate()
   const alert = useAlert();
   const { shippingInfo } = useSelector((state) => state.cart);
   const [address, setAddress] = useState(shippingInfo.address);
@@ -34,7 +36,7 @@ const Shipping = ({history}) => {
     dispatch(
       saveShippingInfo({ address, city, state, country, pinCode, phoneNo })
     );
-    history.push("/order/confirm");
+    navigate("/order/confirm");
   };
 
   return (

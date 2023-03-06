@@ -45,13 +45,19 @@ import NotFound from "./component/layout/NotFound/NotFound";
 import PostProduct from "./component/SingleUser/PostProduct";
 import MyProduct from "./component/SingleUser/MyProduct";
 import EditMyproduct from "./component/SingleUser/EditMyproduct";
-import NewCategory from './component/Admin/NewCategory'
-import CategoryList from './component/Admin/CategoryList'
-import UpdateCategory from './component/Admin/UpdateCategory.js'
+import NewCategory from "./component/Admin/NewCategory";
+import CategoryList from "./component/Admin/CategoryList";
+import UpdateCategory from "./component/Admin/UpdateCategory.js";
+import UserDashboard from "./component/User/UserDashboard";
+import UserProductList from "./component/User/UserProductList";
+import UserNewProduct from "./component/User/UserNewPorduct";
+import UserUpdateProduct from "./component/User/UserUpdateProduct";
+import CarouseList from "./component/Admin/CarouselList";
+import NewCarousel from "./component/Admin/NewCarousel";
+import UpdateCarousel from "./component/Admin/UpdateCarousel";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
-
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
@@ -83,12 +89,9 @@ function App() {
             exact
             path="/process/payment"
             element={
-              <ProtectedRoute>
-                <Elements stripe={loadStripe(stripeApiKey)}>
-                  {" "}
-                  <Payment />
-                </Elements>
-              </ProtectedRoute>
+              <Elements stripe={loadStripe(stripeApiKey)}>
+                <ProtectedRoute component={Payment}></ProtectedRoute>
+              </Elements>
             }
           />
         )}
@@ -115,9 +118,14 @@ function App() {
           path="/password/update"
           element={<ProtectedRoute component={UpdatePassword} />}
         />
+        <Route
+          exact
+          path="/user/dashboard"
+          element={<ProtectedRoute component={UserDashboard} />}
+        />
         <Route exact path="/password/forgot" element={ForgotPassword} />
         <Route exact path="/password/reset/:token" element={ResetPassword} />
-        <Route exact path="/cart" element={Cart} />
+        <Route exact path="/cart" element={<Cart />} />
         <Route
           exact
           path="/shipping"
@@ -153,6 +161,13 @@ function App() {
             ></ProtectedRoute>
           }
         />
+        <Route exact path="/admin/carousels" element={<CarouseList />} />
+        <Route exact path="/admin/carousel" element={<NewCarousel />} />
+        <Route
+          exact
+          path="/admin/carousel/edit/:id"
+          element={<UpdateCarousel />}
+        />
         <Route
           exact
           path="/admin/products"
@@ -163,7 +178,14 @@ function App() {
             ></ProtectedRoute>
           }
         />
-         <Route
+        <Route
+          exact
+          path="/user/products"
+          element={
+            <ProtectedRoute component={UserProductList}></ProtectedRoute>
+          }
+        />
+        <Route
           exact
           path="/admin/categories"
           element={
@@ -183,7 +205,12 @@ function App() {
             ></ProtectedRoute>
           }
         />
-            <Route
+        <Route
+          exact
+          path="/user/product"
+          element={<ProtectedRoute component={UserNewProduct}></ProtectedRoute>}
+        />
+        <Route
           exact
           path="/admin/category"
           element={
@@ -193,35 +220,20 @@ function App() {
             ></ProtectedRoute>
           }
         />
-        
-         <Route
+        <Route
           exact
           path="/addproduct"
-          element={
-            <ProtectedRoute
-              
-              component={PostProduct}
-            ></ProtectedRoute>
-          }
+          element={<ProtectedRoute component={PostProduct}></ProtectedRoute>}
         />
-         <Route
+        <Route
           exact
           path="/myproduct"
-          element={
-            <ProtectedRoute
-              component={MyProduct}
-            ></ProtectedRoute>
-          }
+          element={<ProtectedRoute component={MyProduct}></ProtectedRoute>}
         />
-         <Route
+        <Route
           exact
           path="/editmyproduct/:id"
-          element={
-            <ProtectedRoute
-              
-              component={EditMyproduct}
-            ></ProtectedRoute>
-          }
+          element={<ProtectedRoute component={EditMyproduct}></ProtectedRoute>}
         />
         <Route
           exact
@@ -231,6 +243,13 @@ function App() {
               isAdmin={true}
               component={UpdateProduct}
             ></ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/user/product/:id"
+          element={
+            <ProtectedRoute component={UserUpdateProduct}></ProtectedRoute>
           }
         />
         <Route

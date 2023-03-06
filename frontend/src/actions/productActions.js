@@ -32,6 +32,12 @@ import {
   SINGLE_USER_PRODUCT_REQUEST,
   SINGLE_USER_PRODUCT_SUCCESS,
   SINGLE_USER_PRODUCT_FAIL,
+  FEATURED_PRODUCT_FAIL,
+  FEATURED_PRODUCT_REQUEST,
+  FEATURED_PRODUCT_SUCCESS,
+  HOTDEAL_PRODUCT_FAIL,
+  HOTDEAL_PRODUCT_REQUEST,
+  HOTDEAL_PRODUCT_SUCCESS,
 } from "../constants/productConstants";
 
 // Get All Products
@@ -61,6 +67,42 @@ export const getProduct =
     }
   };
 
+// Get All Featued Product
+export const getFeaturedProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: FEATURED_PRODUCT_REQUEST });
+
+    const { data } = await axios.get("/api/v1/products/featured");
+
+    dispatch({
+      type: FEATURED_PRODUCT_SUCCESS,
+      payload: data.products,
+    });
+  } catch (error) {
+    dispatch({
+      type: FEATURED_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+// Get All Products For Admin
+export const getHotDealProduct = () => async (dispatch) => {
+  try {
+    dispatch({ type: HOTDEAL_PRODUCT_REQUEST });
+
+    const { data } = await axios.get("/api/v1/products/hotdeal");
+
+    dispatch({
+      type: HOTDEAL_PRODUCT_SUCCESS,
+      payload: data.products,
+    });
+  } catch (error) {
+    dispatch({
+      type: HOTDEAL_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 // Get All Products For Admin
 export const getAdminProduct = () => async (dispatch) => {
   try {
@@ -177,7 +219,7 @@ export const getSingleUserProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: SINGLE_USER_PRODUCT_REQUEST });
 
-    const { data } = await axios.get(`/singleuser/product/${id}`);
+    const { data } = await axios.get(`/api/v1/singleuser/product/${id}`);
 
     dispatch({
       type: SINGLE_USER_PRODUCT_SUCCESS,

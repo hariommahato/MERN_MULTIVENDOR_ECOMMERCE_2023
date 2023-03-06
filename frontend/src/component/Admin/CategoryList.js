@@ -104,12 +104,12 @@ const ProductList = () => {
 
   return (
     <Fragment>
-      <MetaData title={`ALL PRODUCTS - Admin`} />
+      <MetaData title={`ALL CATEGORY - Admin`} />
 
       <div className="dashboard">
         <SideBar />
         <div className="productListContainer">
-          <h1 id="productListHeading">ALL PRODUCTS</h1>
+          <h1 id="productListHeading">ALL CATEGORY</h1>
           <Box sx={{ width: "100%", overflow: "auto" }}>
             <DataGrid
               rows={rows}

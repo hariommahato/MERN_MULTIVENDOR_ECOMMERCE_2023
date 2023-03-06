@@ -26,6 +26,16 @@ const userSchema = new mongoose.Schema({
     minLength: [8, "Password Should be Longer than 8 Character"],
     select: false,
   },
+  isseller:{
+    type:Boolean,
+    default:"false",
+  },
+  address:{
+    type:String
+  },
+  shopname:{
+    type:String,
+  },
   avatar: {
     public_id: {
       type: String,

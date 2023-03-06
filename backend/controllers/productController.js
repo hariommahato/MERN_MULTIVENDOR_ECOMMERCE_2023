@@ -29,14 +29,28 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 
   req.body.images = imagesLinks;
   req.body.user = req.user.id;
-  req.body.userName = req.user.name;
-  req.body.userPhone = req.user.phone;
 
   const product = await Product.create(req.body);
 
   res.status(201).json({
     success: true,
     product,
+  });
+});
+// Get All Featured Product
+exports.getFeaturedProduct = catchAsyncError(async (req, res, next) => {
+  const products = await Product.find({ isFeatured: true });
+  res.status(200).json({
+    success: true,
+    products,
+  });
+});
+
+exports.getHotDealProduct = catchAsyncError(async (req, res, next) => {
+  const products = await Product.find({ isHotDeal: true });
+  res.status(200).json({
+    success: true,
+    products,
   });
 });
 
@@ -90,7 +104,7 @@ exports.getProductDetails = catchAsyncError(async (req, res, next) => {
   });
 });
 exports.getSingleUserProduct = catchAsyncError(async (req, res, next) => {
-  const product = await Product.findById(req.params.id);
+  const product = await Product.find({ user: req.params.id });
 
   if (!product) {
     return next(new ErrorHander("Product not found", 404));
